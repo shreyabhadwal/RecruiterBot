@@ -11,7 +11,7 @@ from langchain.prompts import PromptTemplate
 from langchain.chains.conversation.memory import ConversationBufferMemory
 import os
 
-os.environ["OPENAI_API_KEY"] = "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" #Open AI Key
+os.environ["OPENAI_API_KEY"] = "" #Open AI Key
 
 def get_text_data(doc_name):  #Function which loads text files 
     f_doc_name = doc_name + ".txt"
