@@ -11,7 +11,7 @@ from langchain.prompts import PromptTemplate
 from langchain.chains.conversation.memory import ConversationBufferMemory
 import os
 
-os.environ["OPENAI_API_KEY"] = "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" #Open AI Key
+os.environ["OPENAI_API_KEY"] = "" #Open AI Key
 
 def get_text_data(doc_name):  #Function which loads text files 
     f_doc_name = doc_name + ".txt"
@@ -52,6 +52,7 @@ splitter = CharacterTextSplitter(separator=" ", chunk_size=1024, chunk_overlap=0
 for source1 in sources: #For each of the source mentioned
     for source in source1: #Go to each page
         for chunk in splitter.split_text(source.page_content): #Chunk up the content in each page
+            chunk = chunk + "Filename: " + source.metadata['source']
             source_chunks.append(Document(page_content=chunk, metadata=source.metadata))#Append it to source_chunks
 
 search_index = FAISS.from_documents(source_chunks, HuggingFaceEmbeddings())   #Simiarity Search with HuggingFaceEmbeddings
@@ -59,18 +60,21 @@ search_index = FAISS.from_documents(source_chunks, HuggingFaceEmbeddings())   #S
 template = """You are a chatbot having a conversation with a human.
 
 Given the following extracted parts of a long document and a question, create a final answer.
-
+Use only the information available in the context. Don't make up an answer.
+Do not modify contact details. 
 {context}
 
 {chat_history}
 Human: {human_input}
 Chatbot:"""
+
 prompt = PromptTemplate(
     input_variables=["chat_history", "human_input", "context"], 
     template=template
 )
 
 memory = ConversationBufferMemory(memory_key="chat_history", input_key="human_input")
+
 chain = load_qa_chain(OpenAI(temperature=0), chain_type="stuff", prompt = prompt, memory=memory) #Lang chain 
 
 def print_answer(question):
@@ -85,4 +89,4 @@ def print_answer(question):
     )
     
 #Test it out
-print_answer("Who would be suitable for a Senior Cloud Engineer with DevOps experience, focusing on the development of an API Marketplace solution.To be successful in this role they need to be passionate about cloud technologies. They will be working as part of a cloud engineering team that consists of architects and developers. This team is focused on tackling challenging problems and is committed to delivering high-performance, highly scalable- and thoroughly tested production ready solutions. They will be joining a Scrum team working on globally distributed locations in various time zones. Also explain why they are suitable for this role")
+print_answer("Who would be suitable for the role of Cloud Engineer")
