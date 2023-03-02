@@ -11,7 +11,7 @@ import os
 from langchain.prompts import PromptTemplate
 from langchain.chains.conversation.memory import ConversationBufferMemory
 
-os.environ["OPENAI_API_KEY"] = "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" #Open AI Key
+os.environ["OPENAI_API_KEY"] = "" #Open AI Key
 
 #Import data
 def get_pdf_data(doc_name): #Function which loads PDF files (Along with page numbers). Name is required rn, can be made optional.
