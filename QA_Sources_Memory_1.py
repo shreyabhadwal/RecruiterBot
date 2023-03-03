@@ -89,8 +89,4 @@ def print_answer(question):
     )
     
 #Test it out
-<<<<<<< HEAD
 print_answer("Who would be suitable for the role of Cloud Engineer")
-=======
-print_answer("Who would be suitable for a Senior Cloud Engineer with DevOps experience, focusing on the development of an API Marketplace solution.To be successful in this role they need to be passionate about cloud technologies. They will be working as part of a cloud engineering team that consists of architects and developers. This team is focused on tackling challenging problems and is committed to delivering high-performance, highly scalable- and thoroughly tested production ready solutions. They will be joining a Scrum team working on globally distributed locations in various time zones. Also explain why they are suitable for this role")
->>>>>>> d62942730b28d14e53a21059233801d9b1ebfdab
