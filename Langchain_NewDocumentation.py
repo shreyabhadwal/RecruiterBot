@@ -8,7 +8,7 @@ from langchain.chains import ConversationalRetrievalChain
 import pickle
 import os
 
-os.environ["OPENAI_API_KEY"] = "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" #OpenAI Key
+os.environ["OPENAI_API_KEY"] = "" #Your OpenAI Key
 resume_path = 'C:/Users/sbhadwal/SpecChat/Resumes/Resumes_PDFs/'
 sources = []
 
