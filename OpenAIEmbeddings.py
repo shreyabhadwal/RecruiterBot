@@ -15,7 +15,7 @@ from langchain.chains.qa_with_sources import load_qa_with_sources_chain
 from langchain.chains import ChatVectorDBChain
 import os
 
-os.environ["OPENAI_API_KEY"] = "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" #OpenAI Key
+os.environ["OPENAI_API_KEY"] = "" #OpenAI Key
 resume_path = 'C:/Users/sbhadwal/SpecChat/Resumes/Resumes_PDFs/'
 sources = []
 
