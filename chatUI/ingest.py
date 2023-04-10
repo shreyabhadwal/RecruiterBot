@@ -5,7 +5,7 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.vectorstores.faiss import FAISS
 import os
 
-os.environ["OPENAI_API_KEY"] = "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" #OpenAI Key
+os.environ["OPENAI_API_KEY"] = "" #OpenAI Key
 
 def get_pdf_data(doc_name): #Function which loads PDF files(Along with page numbers)
     f_doc_name = 'C:/Users/sbhadwal/SpecChat/Resumes/Resumes_PDFs/' + doc_name
