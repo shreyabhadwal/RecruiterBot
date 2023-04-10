@@ -14,7 +14,7 @@ import os
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 vectorstore: Optional[VectorStore] = None
-os.environ["OPENAI_API_KEY"] = "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" #OpenAI Key
+os.environ["OPENAI_API_KEY"] = "" #OpenAI Key
 
 @app.on_event("startup")
 async def startup_event():
