@@ -5,16 +5,16 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.vectorstores.faiss import FAISS
 import os
 
-os.environ["OPENAI_API_KEY"] = "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" #OpenAI Key
+os.environ["OPENAI_API_KEY"] = "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" #OpenAI Key
 
 def get_pdf_data(doc_name): #Function which loads PDF files(Along with page numbers)
-    f_doc_name = 'C:/Users/sbhadwal/SpecChat/Resumes/Resumes_PDFs/' + doc_name
+    f_doc_name = 'Resumes_PDFs/' + doc_name
     loader = PyPDFLoader(f_doc_name)
     pages = loader.load_and_split()
     return(pages)
 
 def get_resumes():
-    resume_path = 'C:/Users/sbhadwal/SpecChat/Resumes/Resumes_PDFs/'
+    resume_path = 'Resumes_PDFs'
     sources = []
     dir_list = os.listdir(resume_path)
     for i in dir_list:

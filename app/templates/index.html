@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Recruiter Assistant</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+    
+    .chat-body {
+        width: 700px;
+        margin: 50px auto;
+    } 
+    .card-body {
+    background-color: #333;
+    color: #fff;
+    border-radius: 10px;
+    }
+
+    .card-body2 {
+        background-color: #fff;
+        color: #333;
+        border-radius: 10px;
+        width: 75%;
+    }
+    
+    .server-message {
+    background-color: #444;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    }
+    .client-message {
+    background-color: #555;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    }
+    .form-inline {
+    display: flex;
+    justify-content: space-between;
+    }
+    .form-control {
+    width: 80%;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    margin-right: 10px;
+    }
+    #send {
+    background-color: #4C4CFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    }
+    .form-message {
+    margin-top: 10px;
+    }
+    </style>
+    <script>
+
+        //var endpoint = "wss://chatrecruit.azurewebsites.net/chat/";
+        var endpoint = "ws://localhost:8080/chat";
+        var ws = new WebSocket(endpoint);
+        
+        ws.onmessage = function (event) {   //On a message by the web socket
+        var messages = document.getElementById('messages');
+        var data = JSON.parse(event.data);
+        
+        if (data.sender === "bot") {
+
+            if (data.type === "start") {
+                var header = document.getElementById('header');
+                header.innerHTML = "Computing answer...";
+                var div = document.createElement('div');
+                div.className = 'server-message';
+                var p = document.createElement('p');
+                p.innerHTML = "<strong>" + "Chatbot: " + "</strong>";
+                div.appendChild(p);
+                messages.appendChild(div);
+            
+            } else if (data.type === "stream") {
+                var header = document.getElementById('header');
+                header.innerHTML = "Chatbot is typing...";
+                var p = messages.lastChild.lastChild;
+                if (data.message === "\n") {
+                    p.innerHTML += "<br>";
+                } else {
+                    p.innerHTML += data.message;
+                }
+            
+            } else if (data.type === "info") {
+                var header = document.getElementById('header');
+                header.innerHTML = data.message;
+            
+            } else if (data.type === "end") {
+                var header = document.getElementById('header');
+                header.innerHTML = "Ask a question";
+                var button = document.getElementById('send');
+                button.innerHTML = "Send";
+                button.disabled = false;
+            
+            } else if (data.type === "error") {
+                var header = document.getElementById('header');
+                header.innerHTML = "Ask a question";
+                var button = document.getElementById('send');
+                button.innerHTML = "Send";
+                button.disabled = false;
+                var p = messages.lastChild.lastChild;
+                p.innerHTML += data.message;
+            }
+    } else {
+        var div = document.createElement('div');
+        div.className = 'client-message';
+        var p = document.createElement('p');
+        p.innerHTML = "<strong>" + "You: " + "</strong>";
+        p.innerHTML += data.message;
+        div.appendChild(p);
+        messages.appendChild(div);
+    }
+    messages.scrollTop = messages.scrollHeight;
+};
+
+function sendMessage(event) {
+    event.preventDefault();
+    var message = document.getElementById('messageText').value;
+    if (message === "") {
+        button.innerHTML = "No Message"
+        return;
+    }
+    ws.send(message);
+    document.getElementById('messageText').value = "";
+    const info_element = document.getElementById('info');
+    info_element.remove();
+
+    var button = document.getElementById('send');
+    button.innerHTML = "Loading...";
+    button.disabled = true;
+}
+</script>
+</head>
+
+<body class="bg-black">
+    <div class="chat-body card">
+        <div class = "card-body">
+            <h1 class="card-title text-center text-2xl font-bold pt-4">Mr. Hire Smith</h1>
+            <p class="card-text text-center text-sm pt-3" id="header"> Ask a question </p>
+            <hr class="border-gray-500 mb-5" style="margin-top: 20px;">
+            <div class="card-body2 rounded overflow-hidden shadow-lg" id="info" style="width:80%;margin:0 auto">
+                <img class="object-scale-down h-10 w-10 mx-auto pt-4" src="/templates/images/idea_bulb.jpg">
+                <div class="px-6 py-4">
+                  <div class="font-bold text-xl mb-2 text-center">What can you ask me?</div>
+                  <p class="text-gray-700 text-base pt=4 pb=10">
+                    <br>You can ask me a variety of questions on the resumes I have in my database. Here are some examples: <br> <br>
+                    <ul class = "list-disc pl-4">
+                        <li>"Recommend someone for the role of cloud developer with experience in AWS and Azure."</li> <br>
+                        <li>"Who has experience in VoIP?"</li> <br>
+                        <li>"What are the contact details of Sujeet?"</li> <br>
+                        <li>"Where is Rabi currently working?"</li> <br>
+                    </ul>
+                    You can ask me follow up questions on the answers I provide. You can also ask me to point to the specific resume I am referencing to by asking for the filename of the candidate. 
+                    If I am unable to answer a question, please rephrase the question and try asking me again.
+                    <br><br>
+                    Please be aware that I may occasionally generate incorrect information. 
+                    <br><br>
+                    Go ahead, ask me something!
+                    </p>
+                </div>
+              </div>
+            <div id="messages" class="overflow-auto" style="max-height: 500px;">
+            </div>
+            <form action="" class="form-inline mt-5 text-center pr-4" id="chat-form" onsubmit="sendMessage(event)">
+                <input type="text" class="form-control pr-4" placeholder="Write your question" id="messageText">
+                <button id="send" type="submit" class="btn btn-primary">Send</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+<!-- <body class="bg-black">
+    <div class="chat-body card">
+        <div class="card-body p-5">
+            <h4 class="card-title text-center text-xl font-medium"> Chat with your assitant</h4>
+            <p class="card-text text-center text-sm" id="header"> Ask a question </p>
+            <hr class="border-gray-500 mb-5" style="margin-top: 20px;">
+            <div id="messages" class="overflow-auto" style="max-height: 500px;">
+            </div>
+            <form action="" class="form-inline mt-5" id="chat-form" onsubmit="sendMessage(event)">
+                <input type="text" class="form-control" placeholder="Write your question" id="messageText">
+                <button id="send" type="submit" class="btn btn-primary">Send</button>
+            </form>
+        </div>
+    </div>
+</body> -->
+</html>

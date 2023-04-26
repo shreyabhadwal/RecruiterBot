@@ -1,6 +1,6 @@
 """Callback handlers used in the app."""
 from typing import Any, Dict, List
-
+import logging
 from langchain.callbacks.base import AsyncCallbackHandler
 
 from schemas import ChatResponse
@@ -14,6 +14,7 @@ class StreamingLLMCallbackHandler(AsyncCallbackHandler):
 
     async def on_llm_new_token(self, token: str, **kwargs: Any) -> None:
         resp = ChatResponse(sender="bot", message=token, type="stream")
+        #logging.info("streaming_llm_resp:"+ str(resp.dict()))
         await self.websocket.send_json(resp.dict())
 
 
@@ -30,4 +31,5 @@ class QuestionGenCallbackHandler(AsyncCallbackHandler):
         resp = ChatResponse(
             sender="bot", message="Synthesizing question...", type="info"
         )
+        #logging.info("question_gen_resp:"+ str(resp.dict()))
         await self.websocket.send_json(resp.dict())
