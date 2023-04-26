@@ -62,7 +62,7 @@
     <script>
 
         //var endpoint = "wss://chatrecruit.azurewebsites.net/chat/";
-        var endpoint = "ws://localhost:8080/chat";
+        var endpoint = "ws://localhost:5000/chat";
         var ws = new WebSocket(endpoint);
         
         ws.onmessage = function (event) {   //On a message by the web socket
@@ -145,8 +145,8 @@ function sendMessage(event) {
 <body class="bg-black">
     <div class="chat-body card">
         <div class = "card-body">
-            <h1 class="card-title text-center text-2xl font-bold pt-4">Mr. Hire Smith</h1>
-            <p class="card-text text-center text-sm pt-3" id="header"> Ask a question </p>
+            <h1 class="card-title text-center text-xl font-bold pt-4" id="header">Hi there! I'm Hire Smith, a helpful AI assistant for job recruiters.</h1>
+
             <hr class="border-gray-500 mb-5" style="margin-top: 20px;">
             <div class="card-body2 rounded overflow-hidden shadow-lg" id="info" style="width:80%;margin:0 auto">
                 <img class="object-scale-down h-10 w-10 mx-auto pt-4" src="/templates/images/idea_bulb.jpg">
