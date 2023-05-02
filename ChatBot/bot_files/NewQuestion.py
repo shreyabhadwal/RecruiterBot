@@ -7,8 +7,9 @@ from langchain.document_loaders import PagedPDFSplitter
 # from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.chains.llm import LLMChain
-from langchain.chains.chat_vector_db.prompts import (CONDENSE_QUESTION_PROMPT, QA_PROMPT)
-from langchain.prompts import PromptTemplate
+# from langchain.chains.chat_vector_db.prompts import (CONDENSE_QUESTION_PROMPT, QA_PROMPT)
+from prompts import (CONDENSE_QUESTION_PROMPT, QA_PROMPT)
+# from langchain.prompts import PromptTemplate
 from langchain.chains.conversation.memory import ConversationBufferMemory
 from langchain.chains.question_answering import load_qa_chain
 from langchain.chains.qa_with_sources import load_qa_with_sources_chain
@@ -44,14 +45,15 @@ for source1 in sources: #For each of the source mentioned
             source_chunks.append(Document(page_content=chunk, metadata=source.metadata))#Append it to source_chunks
 
 # embeddings = HuggingFaceEmbeddings()
-# # docsearch = FAISS.from_documents(source_chunks, embeddings)
-# # Create embeddings uncomment if you would like to renew your index
-# # docsearch.save_local("faiss_index")
-# # Load saved embeddings index
-# docsearch = FAISS.load_local("faiss_index", HuggingFaceEmbeddings())
 # # docsearch = Chroma.from_documents(source_chunks, embeddings) [IGNORE]
 
-# embeddings = OpenAIEmbeddings()
+embeddings = OpenAIEmbeddings()
+docsearch = FAISS.from_documents(source_chunks, embeddings)
+# Create embeddings uncomment if you would like to renew your index
+docsearch.save_local("faiss_index")
+# Load saved embeddings index
+docsearch = FAISS.load_local("faiss_index", OpenAIEmbeddings())
+
 # docsearch = FAISS.from_documents(source_chunks, embeddings)
 
 # with open ("search_index.pickle","wb") as f:
@@ -65,8 +67,8 @@ for source1 in sources: #For each of the source mentioned
 #       docsearch.add_documents()
 
 
-with open("search_index.pickle", "rb") as f:
-    docsearch = pickle.load(f)
+# with open("search_index.pickle", "rb") as f:
+#     docsearch = pickle.load(f)
 
 llm_gen = OpenAI(temperature=0,verbose=True) #Instantiate an LLM 
 
