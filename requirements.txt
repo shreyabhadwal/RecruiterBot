@@ -1,0 +1,7 @@
+flask==2.3.2
+langchain==0.0.136
+pydantic==1.10.4
+uvicorn==0.20.0
+Werkzeug==2.3.3
+openai==0.27.1
+faiss-cpu==1.7.3
