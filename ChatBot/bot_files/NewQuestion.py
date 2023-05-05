@@ -1,119 +1,40 @@
-# from langchain.vectorstores import Chroma
-from langchain.vectorstores.faiss import FAISS
-from langchain.text_splitter import CharacterTextSplitter
-from langchain.docstore.document import Document
-from langchain import OpenAI, VectorDBQA
-from langchain.document_loaders import PagedPDFSplitter
+import os
+
+from langchain import OpenAI
+from langchain.chains import ChatVectorDBChain
+from langchain.chains import ConversationalRetrievalChain
+# from langchain.prompts import PromptTemplate
+from langchain.chains.llm import LLMChain
+from langchain.chains.question_answering import load_qa_chain
 # from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.embeddings import OpenAIEmbeddings
-from langchain.chains.llm import LLMChain
+from langchain.vectorstores.faiss import FAISS
 # from langchain.chains.chat_vector_db.prompts import (CONDENSE_QUESTION_PROMPT, QA_PROMPT)
-from prompts import (CONDENSE_QUESTION_PROMPT, QA_PROMPT)
-# from langchain.prompts import PromptTemplate
-from langchain.chains.conversation.memory import ConversationBufferMemory
-from langchain.chains.question_answering import load_qa_chain
-from langchain.chains.qa_with_sources import load_qa_with_sources_chain
-from langchain.chains import ChatVectorDBChain
-import os
-import pickle
-import re
-# import config
-os.environ["OPENAI_API_KEY"] = "" #OpenAI Key
+from prompts import CONDENSE_QUESTION_PROMPT, QA_PROMPT
 
-ResumeLocation = os.getcwd()
-ResumeLocation+='/files/'
-re.sub(r"\\\\", "/",ResumeLocation)
-    
-def get_pdf_data(doc_name): #Function which loads PDF files(Along with page numbers)    
-    f_doc_name = ResumeLocation + doc_name
-    loader = PagedPDFSplitter(f_doc_name)
-    pages = loader.load_and_split()
-    return(pages)
+from bot_files.config import setup_key
+setup_key()#OpenAI key
 
-sources = []
-for file in os.listdir(ResumeLocation):
-    # print(file)
-    sources.append(get_pdf_data(file))  
-# print(sources)
-
-source_chunks = []  #Creating chunks of the source documents    
-splitter = CharacterTextSplitter(separator=" ", chunk_size=1024, chunk_overlap=0)
-for source1 in sources: #For each of the source mentioned
-    for source in source1: #Go to each page
-        for chunk in splitter.split_text(source.page_content): #Chunk up the content in each page
-            chunk = chunk + "Filename: " + source.metadata['source']
-            source_chunks.append(Document(page_content=chunk, metadata=source.metadata))#Append it to source_chunks
-
-# embeddings = HuggingFaceEmbeddings()
-# # docsearch = Chroma.from_documents(source_chunks, embeddings) [IGNORE]
-
-embeddings = OpenAIEmbeddings()
-docsearch = FAISS.from_documents(source_chunks, embeddings)
-# Create embeddings uncomment if you would like to renew your index
-docsearch.save_local("faiss_index")
 # Load saved embeddings index
 docsearch = FAISS.load_local("faiss_index", OpenAIEmbeddings())
-
-# docsearch = FAISS.from_documents(source_chunks, embeddings)
-
-# with open ("search_index.pickle","wb") as f:
-#     pickle.dump(docsearch,f)
-
-# #Incomplete: Updating embeddings
-# def update_files():
-#     # global docsearch 
-#     with open("search_index.pickle", "rb") as f:
-#         docsearch = pickle.load(f)
-#       docsearch.add_documents()
-
-
-# with open("search_index.pickle", "rb") as f:
-#     docsearch = pickle.load(f)
 
 llm_gen = OpenAI(temperature=0,verbose=True) #Instantiate an LLM 
 
 question_generator = LLMChain(llm=llm_gen, prompt=CONDENSE_QUESTION_PROMPT) 
-"""
-Langchain to generate new question
-(
-The prompt template is: 
-"Given the following conversation and a follow up question, 
-rephrase the follow up question to be a standalone question.
-
-Chat History:
-{chat_history}
-
-Follow Up Input: {question}
-
-Standalone question:
-"
-)
-"""
 
 doc_chain = load_qa_chain(llm_gen, chain_type="stuff", prompt=QA_PROMPT)
 
-"""
-Langchain to make the final answer (from the top 4 chunks)
-(
-The prompt template is:
-"Use the following pieces of context to answer the question at the end. 
-If you don't know the answer, just say that you don't know, don't try to make up an answer.
-Return the source file's location if asked for a filename.
-{context}
-
-Question: {question} 
-Helpful Answer:"
-
-)
-
-Note: The question here is the new question that is created earlier from the (user question + chat histroy)
-"""
-qa = ChatVectorDBChain(                                 
-    vectorstore=docsearch,
-    combine_docs_chain=doc_chain,
-    question_generator=question_generator,
-    return_source_documents = True, 
+qa  = ConversationalRetrievalChain(
+        retriever=docsearch.as_retriever(),
+        combine_docs_chain=doc_chain,
+        question_generator=question_generator,
     )
+# qa = ChatVectorDBChain(                                 
+#     vectorstore=docsearch,
+#     combine_docs_chain=doc_chain,
+#     question_generator=question_generator,
+#     return_source_documents = True, 
+#     )
 
 """
 Discovered ChatVectorDBChain (another langchain) while going through Langchain's Github. Helps us do exactly what we want. 
@@ -123,24 +44,27 @@ I had written a function for this process, but I feel doing it this way is faste
 
 chat_history = [] #Maintain a list for recording the chat history
 
-def print_answer(question): 
+def print_answer(question, chatHistoryFlag): 
     global chat_history
+    if chatHistoryFlag == 1:
+        chat_history = []
     result = qa(  #Run the chain
         {"question": question, "chat_history": chat_history},
         return_only_outputs=False,
         )
     
     chat_history.append((question, result['answer'])) #Update the chat history with the question asked and the answer
-    # if len(chat_history)>=5:
-    #     chat_history=chat_history[1:]
+    #To create a chat history window
+    if len(chat_history)>=5:
+       chat_history=chat_history[1:] 
 
-    sources_set = set()
+    #To get source from file metadata
+    """ sources_set = set()
     for doc in result["source_documents"]:
-        sources_set.add(doc.metadata['source'])
+        sources_set.add(doc.metadata['source']) 
+    print("Sources:", sources_set) """
 
- 
-    print("Sources:", sources_set)
-    return [result['answer'],sources_set]
+    return [result['answer']]
     # print(result)
 # print(print_answer("who has apigee experience?"))
 # print_answer("who has apigee experience?")

@@ -3,7 +3,7 @@ import os
 import bot_files.NewQuestion as NewQuestion
 from flask import Flask, render_template, request, redirect, flash
 from werkzeug.utils import secure_filename#For File upload
-
+chatHistoryFlag = 0
 app = Flask(__name__)
 
 #File Upload Config
@@ -32,13 +32,17 @@ def allowed_file(filename):
 # WebPage routing
 @app.route("/")
 def home():
+    global chatHistoryFlag
+    chatHistoryFlag = 1
     return render_template("index.html")
 
 @app.route("/get")
 def get_bot_response():
+    global chatHistoryFlag
     userText = request.args.get('msg')
     # return str(LCMetaData.print_answer2(userText))
-    out = NewQuestion.print_answer(userText)
+    out = NewQuestion.print_answer(userText,chatHistoryFlag)
+    chatHistoryFlag = 0
     response = str(out[0]) 
     #Uncomment to add sources
     #response += "The source files are:"
@@ -72,4 +76,5 @@ def upload_file():
 
 if __name__ == "__main__":
     app.run(host='127.0.0.1',port=5000,threaded=True)
+    
 #LCMetaData.print_answer2("Who is the best choice for php development")
