@@ -1,0 +1,40 @@
+form {
+    padding: 5%;
+    border: 2px solid #D50000;
+    border-radius: 5px;
+    margin: 100px 10%;
+    text-align: center;
+}
+
+#label {
+    font-size: larger;
+}
+
+#email {
+    margin: 3%;
+    border: 2px solid #D50000;
+
+}
+
+#captcha {
+    padding: 0px 33%;
+}
+
+.submit {
+    background-color: #D50000;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    height: 40px;
+    width: 80px;
+    font-size: larger;
+    margin-top: 20px;
+}
+
+.submit:hover {
+    background-color: #ffffff;
+    color: #D50000;
+    transition: 0.5s;
+    border: 2px solid #D50000;
+    font-size: larger;
+}
