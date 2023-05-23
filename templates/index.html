@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+  </head>
+<body>
+
+<h1>Flask Recaptcha</h1>
+
+<p>Flask Recaptcha Test</p>
+
+<form method="post" action="/submit">
+  Username:<br>
+  <input type="text" name="username"><br>
+  Password:<br>
+  <input type="password" name="password">
+
+  {{ recaptcha }}
+
+  <input type="submit" value="Submit">
+  <!-- <div class="g-recaptcha" data-sitekey="6LcwpCwmAAAAAPN5AMtlCfY0dUWP5hmrQx2emuWt"></div> -->
+</form>
+
+</body>
+</html>
