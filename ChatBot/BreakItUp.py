@@ -6,7 +6,7 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.vectorstores.base import VectorStore
 import os
 
-def format_chat_history(chat_history_tuple: tuple) -> str:
+def format_chat_history(chat_history_tuple: tuple) -> str:   
     chat_history = ""
     for dialogue_turn in chat_history_tuple:
         human = "Human: " + dialogue_turn[0]
@@ -120,3 +120,4 @@ if __name__=="__main__":
 
     except KeyboardInterrupt:
         pass
+    
