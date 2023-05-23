@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<title>Recruiter Bot</title>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"> -->
+  <link rel="stylesheet" href="../static/css/styles.css">
+
+  <!-- <link rel="icon" type="image/x-icon" href="../static/images/botLogo.png"> -->
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/botLogo.png') }}">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <center>
+    <h1>
+      Mr. Hire Smith
+    </h1>
+  </center>
+  <!-- upload button -->
+  <!-- <button type="button"><a href="{{url_for('upload_file')}}" >Upload</a></button>  -->
+  <div class="box"></div>
+  <div class="boxed">
+    <div>
+      <div id="chatbox">
+        <div class="textBoxBot"><img class="logo" src="{{ url_for('static', filename='images/botLogo.png') }}"
+            alt="botLogo" />
+          <!-- <div class = "textBoxBot"><img  class= "logo" src="../static/images/botLogo.png" alt="botLogo" /> -->
+          <p class="botText">
+            <span>Hi! I am Hire Smith. I will assist you in your recruitment process.</span>
+          </p>
+        </div>
+      </div>
+      <div id="userInput">
+        <!-- <input id="textInput" type="text" name="msg" placeholder="Enter your question  here..." /> -->
+
+        <textarea id="textInput" type="text" name="msg" placeholder="Enter your question  here..."></textarea>
+
+        <button id="submitButton" type="button" onclick="getBotResponse()">Submit</button>
+      </div>
+    </div>
+    <script src="{{url_for('static', filename='js/jquery.js')}}"></script>
+  </div>
+</body>
+
+</html>

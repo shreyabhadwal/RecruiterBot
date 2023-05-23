@@ -1,0 +1,40 @@
+Setup: Did/t actually use memory since didn't pass it to the chain. Displays how memory wasn'used.
+
+Kirti Nagane, Sujeet Neema, and Vidhyasimhan J are suitable for the role of Senior Cloud Engineer with DevOps experience, focusing on the development of an API Marketplace solution. They have the necessary certifications and technical skills, such as Google Cloud Certified Cloud Digital, Apigee API Management, Java, Rest APIs, JSON, YAML, SwaggeKubernetes, NodeJS, Python, Microsoft certified Azure Fundamentals, and RESTful NodeJS based Microservice development for VoIP Applications, Consul Service Mesh, Redis Labs and Confluent Kafka. They also have experience in the development and maintenance of software, as well as knowledge of the SDLC phases, working with various vertical
+Setup:PS C:\Users\tsohani\Project\ChatBot>
+PS C:\Users\tsohani\Project\ChatBot> & C:/Users/tsohani/Anaconda3/envs/chatbot1/python.exe c:/Users/tsohani/Project/ChatBot/LCMetaData.py
+ Vidhyasimhan J would be suitable for the position of a VoIP engineer.
+SOURCES: C:/Users/tsohani/Project/ChatBot/Resumes/Vidhyasimhan_J_Resume.pdf
+PS C:\Users\tsohani\Project\ChatBot> & C:/Users/tsohani/Anaconda3/envs/chatbot1/python.exe c:/Users/tsohani/Project/ChatBot/LCMetaData.py
+PS C:\Users\tsohani\Project\ChatBot> & C:/Users/tsohani/Anaconda3/envs/chatbot1/python.exe c:/Users/tsohani/Project/ChatBot/LCMetaData.py
+ Vidhyasimhan J would be suitable for the position of a VoIP engineer. He has 6+ years of IT experience on Server side Development using VoIP technologies and has hands-on des, Genesys Voice Processing, Cisco T-Server and Avaya T-Server. He also has expertise in Loki LoqQL and Kibana queries, has experience creating a call lifecycle dashboard, hace observability through metrics including health checks and golden signals, has experience automating Canary Deployment strategy through Jenkins and GitHub Workflows into K8s engine, and has experience maintaining of Runbooks and Upgrade validation procedure documents in a confluence page. He also has three patents under the United States Patent Office and has developed a solution in Automating Agent's Mundane tasks using Robotic Process Automation tools and awarded as Best Product Pick during Internal PureCloud Hackathon.
+SOURCES: C:/Users/
+PS C:\Users\tsohani\Project\ChatBot> & C:/Users/tsohani/Anaconda3/envs/chatbot1/python.exe c:/Users/tsohani/Project/ChatBot/LCMetaData.py
+{'output_text': ' Vidhyasimhan J would be suitable for the position of a VoIP engineer.\nSOURCES: C:/Users/tsohani/Project/ChatBot/Resumes/Vidhyasimhan_J_Resume.pdf'}        
+PS C:\Users\tsohani\Project\ChatBot> & C:/Users/tsohani/Anaconda3/envs/chatbot1/python.exe c:/Users/tsohani/Project/ChatBot/LCMetaData.py
+ Vidhyasimhan J would be suitable for the position of a VoIP engineer.
+SOURCES: C:/Users/tsohani/Project/ChatBot/Resumes/Vidhyasimhan_J_Resume.pdf
+next question?does he know azure?
+ Yes, he knows Azure.
+SOURCES: C:/Users/tsohani/Project/ChatBot/Resumes/Vidhyasimhan_J_Resume.pdf
+next question?can he also implement machine learning models? How many years experience does he have?
+ It is not stated whether Sujeet Neema or Vidhyasimhan J can implement machine learning models. Sujeet Neema has 11+ years of experience and Vidhyasimhan J has 6+ years of experience.
+SOURCES: C:/Users/tsohani/Project/ChatBot/Resumes/Sujeet Neema - Cognitive Developer.pdf, C:/Users/tsohani/Project/ChatBot/Resumes/Vidhyasimhan_J_Resume.pdf
+next question?0
+
+
+Setup: included memory to qa and removed sources.
+
+PS C:\Users\tsohani\Project\ChatBot> & C:/Users/tsohani/Anaconda3/envs/chatbot1/python.exe c:/Users/tsohani/Project/ChatBot/LCMetaData.py
+ Based on the information provided, Vidhyasimhan J would be suitable for the position of a VoIP engineer. He has 6+ years of IT experience on Server side Development using VoIP technologies, Design and Development of Microservices for VoIP Applications in Multi-Cloud SaaS platform, Ideate and Implement new solutions to Improve CX in contact center space. He has expertise in VoIP SIP Technologies, Hands-on Development Experience in SIP Server (C++), Cloud Devops & Automation, Azure DevOps, GCP, Terraform, GitHub Workflows, HELM, Kubernetes, NodeJS, Python, Microsoft certified Azure Fundamentals, Microservice Development, and Experience in RESTful NodeJS based Microservice development for 
+VoIP Applications, Consul Service Mesh, Redis Labs and Confluent Kafka. He also has experience in Loki LoqQL and Kibana queries and created a call lifecycle dashboard which helped company in debugging VoIP interactions during on-call customer issues.
+next question?what is his contact info
+ Vidhyasimhan J's contact info is simhan2895@gmail.com and +91 950-013-7684.
+next question?what is her contact info
+ I'm sorry, I don't understand. Could you please rephrase your question?
+next question?his working experience?
+ Vidhyasimhan J has 6+ years of IT experience on Server side Development using VoIP technologies, Design and Development of Microservices for VoIP Applications in Multi-Cloud SaaS platform, Ideate and Implement new solutions to Improve CX in contact center space. He has expertise in VoIP SIP Technologies, Hands-on Development Experience in SIP Server (C++), Cloud Devops & Automation, Azure DevOps, GCP, Terraform, GitHub Workflows, HELM, Kubernetes, NodeJS, Python, Microsoft certified Azure Fundamentals, Microservice 
+Development, and Experience in RESTful NodeJS based Microservice development for VoIP Applications, Consul Service Mesh, Redis Labs and Confluent Kafka. He also has experience in Loki LoqQL and Kibana queries and created a call lifecycle dashboard which helped company in debugging VoIP interactions during on-call customer issues.
+next question?any other candidate?
+ Yes, Sujeet Neema would be suitable for the position of a VoIP engineer. He has 11+ years of experience with a varying range of tech stack Omniture, Watson Assistant, Python (to name a few). He has experience working on research based projects and taking proof of concepts to production. He has core expertise in delivering orchestration layers on Node.js.
+next question?0
