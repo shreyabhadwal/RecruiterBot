@@ -13,7 +13,7 @@ from langchain.vectorstores.faiss import FAISS
 from prompts import CONDENSE_QUESTION_PROMPT, QA_PROMPT
 
 from bot_files.config import setup_key
-setup_key()#OpenAI key
+setup_key() # OpenAI key
 
 # Load saved embeddings index
 docsearch = FAISS.load_local("faiss_index", OpenAIEmbeddings())
