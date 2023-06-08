@@ -1,0 +1,25 @@
+{
+  "scriptFile": "__init__.py",
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "route": "testcreate",
+      "methods": ["get", "post"]
+    },
+    {
+      "name":"item",
+      "type": "sql",
+      "direction": "out",
+      "commandText": "dbo.ChatRecord",
+      "connectionStringSetting": "SqlConnectionString"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "$return"
+    }
+  ]
+}
