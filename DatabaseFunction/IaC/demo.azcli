@@ -1,2 +1,0 @@
-$templateFile="C:/Users/sbhadwal/SpecChat/azure_functions/RecruiterBot/azuredeploy.json"
-az deployment group create --name blanktemplate1 --resource-group interns_2023 --template-file $templateFile --parameters serverName=shreyaexam1 sqlDBName=shreyaaa123 administratorLogin=sbhadwal@avaya.com administratorLoginPassword=Great4ev@@
