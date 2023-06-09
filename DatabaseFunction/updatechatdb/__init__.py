@@ -1,8 +1,9 @@
-import azure.functions as func
 import json
+import azure.functions as func
+
 
 def main(req: func.HttpRequest, item: func.Out[func.SqlRow]) -> func.HttpResponse:
-    
+
     body = json.loads(req.get_body())
     row = func.SqlRow.from_dict(body)
     name = req.params.get('name')
