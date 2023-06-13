@@ -13,7 +13,7 @@
       "name":"item",
       "type": "sql",
       "direction": "out",
-      "commandText": "dbo.ChatRecord",
+      "commandText": "dbo.chatHistory1",
       "connectionStringSetting": "SqlConnectionString"
     },
     {

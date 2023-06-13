@@ -14,3 +14,5 @@ def main(req: func.HttpRequest, item: func.Out[func.SqlRow]) -> func.HttpRespons
         status_code=201,
         mimetype="application/json"
     )
+
+ 
